@@ -1,66 +1,59 @@
 class Kindergarden {
     constructor(kindergardenName) {
-        this.name = kindergardenName;
-        this.kidsQty = 0;
+        this.kindergarden = kindergardenName;
         this.childrenList = [];
-        this.updatedChildrenList = [];
-    }
+        this.childrenLimit = 3;
 
+    }
     intro() {
-        console.log(`"${this.name}" can accept 3 kids.`);
-
+        console.log(`"${this.kindergarden}" can accept ${this.childrenLimit} kids.`);
     }
+    updateKidsLimit(newLimit) {
+        if (this.childrenList.length > newLimit) {
 
-    updateKidsLimit(maxQty) {
-        this.maxKidsQty = maxQty;
-        if (this.maxKidsQty === 3) {
-            console.log(`"${this.name}" can not update kids limit right now.`);
-        }
-        if (this.maxKidsQty === 3 && this.maxKidsQty <= 5) {
-            console.log(`"${this.name}" can accept ${this.maxKidsQty} kids now.`);
-            return;
-        }
-    }
-
-    addKid(kidName) {
-        this.childrenList.push({
-            name: kidName,
-        })
-        if (this.childrenList.length <= 5) {
-            console.log(`${kidName} has entered "${this.name}" kindergarden.`);
+            console.log(`"${this.kindergarden}" can not update kids limit right now.`);
         } else {
-            console.log(`${kidName} can not enter "${this.name}" kindergarden - it's at a full capacity of ${this.maxKidsQty} kids.`);
+            this.childrenLimit = newLimit;
+            console.log(`"${this.kindergarden}" can accept ${this.childrenLimit} kids now.`);
         }
-        //if (this.updatedChildrenList.length <= 3) {
-        //console.log(`"${this.name}" can accept 3 kids now.`);
-        //console.log(this.updatedChildrenList);
-        //}
-        //console.log(this.childrenList);
     }
+    addKid(kidsName) {
+        if (this.childrenLimit === this.childrenList.length) {
+            console.log(`${kidsName} can not enter "${this.kindergarden}" kindergarden - it's at a full capacity of ${this.childrenLimit} kids.`);
+            return
+        } else {
 
+            this.childrenList.push(kidsName);
+            console.log(`${kidsName} has entered "${this.kindergarden}" kindergarden.`);
+        }
+    }
     sayHi() {
-        let welcome = '';
-        for (let i = 0; i < this.childrenList.length; i++) {
-            if (this.updatedChildrenList) {
-                welcome += `${this.childrenList[i].name}, `;
-                //console.log(`"${this.name}" is visited by: ${this.childrenList[0].name}, ${this.childrenList[1].name}, ${this.childrenList[2].name}, ${this.childrenList[3].name} and ${this.childrenList[4].name}.`);
-            }
-        }
-        console.log(`"${this.name}" is visited by: ${welcome}.`);
-    }
-    //}
+        let kidGroup = ``;
+        for (let child of this.childrenList) {
 
+            if (child === this.childrenList[this.childrenList.length - 2] &&
+                this.childrenList.length >= 2) {
+                kidGroup += `${this.childrenList[this.childrenList.length - 2]} and ${this.childrenList[this.childrenList.length - 1]}`
+                break
+            }
+            kidGroup += this.childrenList.length > 1 ? `${child}, ` : `${child}`;
+        }
+        console.log(`"${this.kindergarden}" is visited by: ${kidGroup}.`);
+    }
     removeKid(kidName) {
         let updatedChildrenList = [];
-        for (let i = 0; i < this.childrenList.length; i++) {
-            if (this.childrenList[i].kidName !== kidName) {
-                updatedChildrenList.push(this.childrenList[i]);
+        for (const child of this.childrenList) {
+            if (kidName !== child) {
+                updatedChildrenList.push(child);
+            } else {
+
+                console.log(`${child} has left "${this.kindergarden}" kindergarden.`);
             }
+
         }
-        this.updatedChildrenList = updatedChildrenList;
-        console.log(`${kidName} has left "${this.name}" kindergarden.`);
-        console.log(this.updatedChildrenList);
+        this.childrenList = updatedChildrenList;
     }
+
 }
 
 module.exports = Kindergarden;

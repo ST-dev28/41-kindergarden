@@ -47,8 +47,8 @@ barsukai.removeKid('Kaziukas');
 barsukai.sayHi();
 // "Barsukai" is visited by: Maryte and Snaige.
 
-//barsukai.removeKid('Maryte');
+barsukai.removeKid('Maryte');
 // Maryte has left "Barsukai" kindergarden.
 
-//barsukai.sayHi();
+barsukai.sayHi();
 // "Barsukai" is visited by: Snaige.
